@@ -34,6 +34,9 @@ class VectorDBManager:
         # 初始化BGE模型
         self.bge_model = BGEModel()
         
+        # 初始化分段器
+        self.segmenter = TextSegmenter()
+        
         # 获取或创建集合
         self.contract_collection = self.client.get_or_create_collection(
             name=config.COLLECTION_CONTRACTS,
@@ -43,6 +46,11 @@ class VectorDBManager:
         self.law_collection = self.client.get_or_create_collection(
             name=config.COLLECTION_LAWS,
             metadata={"description": "法律法规集合"}
+        )
+        
+        self.segment_collection = self.client.get_or_create_collection(
+            name=config.COLLECTION_SEGMENTS,
+            metadata={"description": "合同分段集合"}
         )
         
     def add_contract_template(self, content: str, metadata: dict) -> dict:
@@ -61,7 +69,7 @@ class VectorDBManager:
         # 生成模板ID
         template_id = metadata.get("id") or str(uuid.uuid4())
         
-        # 1. 分段处理 TODO
+        # 1. 分段处理
         segments = self.segmenter.smart_segment(content)
         segment_embeddings = self.bge_model.encode_batch(segments)
         segment_ids = []
@@ -273,4 +281,3 @@ class VectorDBManager:
             "query": user_query,
             "filters": user_filters
         }
-    

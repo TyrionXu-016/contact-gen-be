@@ -1,6 +1,6 @@
 # flk_crawler — 国家法律法规数据库爬取工具
 
-从 **国家法律法规数据库**（https://flk.npc.gov.cn）按关键词抓取法规 ，自动下载 `docx`/`pdf` 等附件，并将 `docx` 导出为 `txt` 文本。
+从 **国家法律法规数据库**（https://flk.npc.gov.cn）  按关键词抓取法规 ，自动下载 `docx`/`pdf` 等附件，并将 `docx` 导出为 `txt` 文本。
 
 支持两种使用方式：
 
@@ -12,7 +12,7 @@
   python flk_crawler.py -k 证券法 --no-filter
 
 
-- **Python 库**（便于在其他项目中直接调用）
+- **Python 库**（在其他项目中直接调用）
 
   参数：
 

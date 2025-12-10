@@ -24,6 +24,8 @@
   no_filter    : 如果 True，则不做“本体”过滤，搜索结果全部下载
   cookie       : 可选 Cookie 字符串（否则使用 COOKIE_STR 或环境变量 FLK_COOKIE）
   auto_txt     : 是否对 docx 自动导出 txt，默认 True
+  ```
+  ```text
 {
     "id":    "<bbbs>",
     "title": "标题",
@@ -31,6 +33,8 @@
     "doc_path": "下载到的 docx/pdf 路径或空字符串",
     "txt_path": "生成的 txt 路径或空字符串",
 }
+ ```
+ ```text
 from flk_crawler import crawl_laws
 
 results = crawl_laws(
@@ -38,7 +42,7 @@ results = crawl_laws(
     max_pages=3,
     save_dir="公司法_本体_flk",
 )
-
+ ```
 
 
 

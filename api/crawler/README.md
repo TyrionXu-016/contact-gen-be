@@ -14,31 +14,31 @@
 
 - **Python 库**（便于在其他项目中直接调用）
 
-    参数：
-      keyword      : 搜索关键词，如 "公司法" / "民法典" / "证券法"
-      max_pages    : 搜索结果翻页数上限，默认 3
-      save_dir     : 保存目录，默认 "<keyword>_本体_flk"
-      exclude_words: 本体过滤时的排除词列表，默认使用 DEFAULT_EXCLUDE_WORDS
-      no_filter    : 如果 True，则不做“本体”过滤，搜索结果全部下载
-      cookie       : 可选 Cookie 字符串（否则使用 COOKIE_STR 或环境变量 FLK_COOKIE）
-      auto_txt     : 是否对 docx 自动导出 txt，默认 True
-    返回：
-      列表，每个元素为：
-        {
-          "id":    <bbbs>,
-          "title": <标题>,
-          "gbrq":  <公布日期>,
-          "doc_path": <下载到的 docx/pdf 路径或空字符串>,
-          "txt_path": <生成的 txt 路径或空字符串>,
-        }
-  使用示例（项目引用）：
-  from flk_crawler import crawl_laws
-  results = crawl_laws(
+  参数：
+
+  ```text
+  keyword      : 搜索关键词，如 "公司法" / "民法典" / "证券法"
+  max_pages    : 搜索结果翻页数上限，默认 3
+  save_dir     : 保存目录，默认 "<keyword>_本体_flk"
+  exclude_words: 本体过滤时的排除词列表，默认使用 DEFAULT_EXCLUDE_WORDS
+  no_filter    : 如果 True，则不做“本体”过滤，搜索结果全部下载
+  cookie       : 可选 Cookie 字符串（否则使用 COOKIE_STR 或环境变量 FLK_COOKIE）
+  auto_txt     : 是否对 docx 自动导出 txt，默认 True
+{
+    "id":    "<bbbs>",
+    "title": "标题",
+    "gbrq":  "公布日期",
+    "doc_path": "下载到的 docx/pdf 路径或空字符串",
+    "txt_path": "生成的 txt 路径或空字符串",
+}
+from flk_crawler import crawl_laws
+
+results = crawl_laws(
     keyword="公司法",
     max_pages=3,
     save_dir="公司法_本体_flk",
 )
----
+
 
 
 

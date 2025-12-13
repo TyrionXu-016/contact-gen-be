@@ -43,4 +43,16 @@ Nginx版本：
 ### 输出文档
 
 ### 大语言模型调用
-模型以及版本选择：
+模型以及版本选择：doubao-seed-1-6-251015
+
+### 激活虚拟环境
+source venv/bin/activate
+
+### 下载依赖包
+conda install -c conda-forge fastapi uvicorn transformers pytorch openai
+
+### 运行
+uvicorn model_api.main:app --reload
+
+### 查看网页，使用大模型
+http://127.0.0.1:8000/docs

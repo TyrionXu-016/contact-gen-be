@@ -1,0 +1,20 @@
+### 大语言模型调用
+模型以及版本选择：doubao-seed-1-6-251015
+
+### 激活虚拟环境
+source venv/bin/activate
+
+### 下载依赖包
+conda install -c conda-forge fastapi uvicorn transformers pytorch openai
+
+### 运行
+uvicorn model_api.main:app --reload
+
+### 查看网页，使用大模型
+http://127.0.0.1:8000/docs
+
+### model_api结构
+backend.txt 是给后端（徐阳）参考，是用的FastAPI作为模型接口给后端
+knowledge_retriever.py 作为向量知识库的接口，目前是模拟状态，还待完善（等陈玲）
+main.py 配置模型和输入输出的地方，已在根目录放了刘娅给的最新提示词（略微修改）
+关于提示词的解释：为保证提示词数量稳定，且模型可以有效吸收，知识库的接口直接给我会好点

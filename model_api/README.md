@@ -7,6 +7,12 @@ source venv/bin/activate
 ### 下载依赖包
 conda install -c conda-forge fastapi uvicorn transformers pytorch openai
 
+### api_key
+请在https://console.volcengine.com/iam/keymanage 生成密钥
+保留.env_example文件，自己创建一个.env文件，填入里面所有的信息，
+AI_SERVICE_BASE_URL = "http://localhost:8000"是对的，不用改，直接用
+向量库用的模型密钥也可以像这样在.env_example文件添加一下
+
 ### 运行
 uvicorn model_api.main:app --reload
 
@@ -18,3 +24,4 @@ backend.txt 是给后端（徐阳）参考，是用的FastAPI作为模型接口�
 knowledge_retriever.py 作为向量知识库的接口，目前是模拟状态，还待完善（等陈玲）
 main.py 配置模型和输入输出的地方，已在根目录放了刘娅给的最新提示词（略微修改）
 关于提示词的解释：为保证提示词数量稳定，且模型可以有效吸收，知识库的接口直接给我会好点
+

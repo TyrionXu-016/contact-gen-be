@@ -119,33 +119,19 @@ class VectorDBManager:
         
         #  分段处理
         segments = split_contract(content, data_type="law")
-        segment_embeddings = []
         for i in range(len(segments)):
-            if(i>12):
-                break
             if i%10 == 0:
                 print(f"==向量化第{i}-{i+10}段法律文本==")
             embeddings = self.bge_model.encode(segments[i])
-            segment_embeddings.append(embeddings)
-        segment_embeddings = np.array(segment_embeddings)
 
-        # 整体法律向量生成（加权平均）
-        # 这里可以根据分段的重要性进行加权，简化版本使用简单平均
-        if len(segment_embeddings) > 0:
-            # 简单平均
-            template_embedding = segment_embeddings.mean(axis=0).tolist()
-        else:
-            # 如果没有分段，直接编码整个文本
-            template_embedding = self.bge_model.encode(content).tolist()
+            # 存储 TODO 法律法规是否不需要整体存储，只存分段？
+            self.law_collection.add(
+                documents=[segments[i]],
+                embeddings=embeddings,
+                metadatas=[metadata],
+                ids=[regulation_id]
+            )
 
-        # 存储
-        self.law_collection.add(
-            documents=[content],
-            embeddings=template_embedding,
-            metadatas=[metadata],
-            ids=[regulation_id]
-        )
-        
         return regulation_id
     
     def add_case_template(self, content: str, metadata: dict) -> str:

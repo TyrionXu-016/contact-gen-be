@@ -216,17 +216,6 @@ results = crawl_contracts(
     save_dir="人民法院案例_下载",
     token="你的_faxin-cpws-al-token",
 )
-
-# 已知若干案例 id，直接抓取
-ids = [
-    "bEWKpCPsHgwg4a9%2FN4sfaYhgXlUukPninqvENCvDrEk%3D",
-    "yKZl5EnB2eOGzBVcocin%2FajWx9YukT4A8eS2v6Y%2F%2BUI%3D",
-]
-results = crawl_contracts(
-    ids=ids,
-    save_dir="指定人民法院案例",
-    token="你的_faxin-cpws-al-token",
-)
 ```
 
 
@@ -235,9 +224,9 @@ results = crawl_contracts(
 - Python 3.8+
 - 依赖库：
   - `requests`
-  - `python-docx`（仅 flk_crawler 使用，用于 docx → txt）
-  - `beautifulsoup4`（用于 htsfw_crawler / flal_crawler 解析 HTML）
-  - `pdfplumber`（用于 htsfw_crawler / flal_crawler 将 pdf → txt）
+  - `python-docx`
+  - `beautifulsoup4`
+  - `pdfplumber`
 
 安装依赖：
 

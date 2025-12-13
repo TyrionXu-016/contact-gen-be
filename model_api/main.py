@@ -48,6 +48,7 @@ async def generate_contract(request: GenerateRequest):
             messages=[
                 {"role": "system", "content": system_prompt_content},
             ]
+            print(messages)
             #加入知识库检索内容
             retrieved_knowledge = []
             if request.use_new_knowledge_base:

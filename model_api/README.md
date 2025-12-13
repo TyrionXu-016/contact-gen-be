@@ -10,7 +10,7 @@ conda install -c conda-forge fastapi uvicorn transformers pytorch openai
 ### api_key
 请在https://console.volcengine.com/iam/keymanage 生成密钥
 保留.env_example文件，自己创建一个.env文件，填入里面所有的信息，
-AI_SERVICE_BASE_URL = "http://localhost:8000"是对的，不用改，直接用
+AI_SERVICE_BASE_URL ="http://localhost:8000/docs"是对的，不用改，直接用
 向量库用的模型密钥也可以像这样在.env_example文件添加一下
 
 ### 运行

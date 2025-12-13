@@ -11,3 +11,6 @@ model_dir = snapshot_download(
     cache_dir=custom_dir
 )
 print(f"模型下载到: {model_dir}")
+
+# 下载简体中文小型模型
+#python -m spacy download zh_core_web_sm

@@ -19,18 +19,13 @@ NORMALIZE_EMBEDDINGS = True
 # 数据库配置
 COLLECTION_CONTRACTS = "contract_templates"
 COLLECTION_LAWS = "legal_regulations"
-COLLECTION_SEGMENTS = "contract_segments"  # 用于存储分段向量
+COLLECTION_CASE = "case_templates"  
 
 # 检索配置
 SIMILARITY_THRESHOLD = 0.75  # 相似度阈值
 MAX_CONTRACT_RESULTS = 5
 MAX_LAW_RESULTS = 10
-MAX_SEGMENT_RESULTS = 20
-
-# 分段配置
-SEGMENT_MIN_LENGTH = 50  # 最小分段长度
-SEGMENT_MAX_LENGTH = 500  # 最大分段长度
-SEGMENT_OVERLAP = 50  # 分段重叠长度
+MAX_CASE_RESULTS = 5
 
 # 元数据字段
 CONTRACT_METADATA_FIELDS = [

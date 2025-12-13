@@ -125,7 +125,7 @@ results = crawl_contracts(
 
 # flal_crawler — 人民法院案例库爬取工具
 
-从 **人民法院案例库**（https://rmfyalk.court.gov.cn/）按关键词抓取“典型案例”，自动下载对应的 `PDF` 文书，并使用 `pdfplumber` 抽取正文为 `txt` 文本；同时对常见页眉页脚水印（如“库 例 案 院 法 民 人 第 页”）进行清洗，减少噪声。
+从 **人民法院案例库**（https://rmfyalk.court.gov.cn/） 按关键词抓取“典型案例”，自动下载对应的 `PDF` 文书，并使用 `pdfplumber` 抽取正文为 `txt` 文本。
 
 > ⚠ 使用前置条件：  
 > - 需在浏览器中正常登录人民法院案例库；  

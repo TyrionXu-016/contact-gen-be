@@ -1,13 +1,18 @@
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
-from langchain.text_splitter import CharacterTextSplitter  # 用于文本分块的工具库
+try:
+    from langchain_text_splitters import CharacterTextSplitter  # LangChain 1.x 拆分后的官方实现
+except ImportError:
+    from langchain.text_splitter import CharacterTextSplitter  # 兼容旧版本 LangChain
 import spacy  # 用于中文分词和文本解析的核心库
+from spacy.lang.zh import Chinese
 
-from api.crawler.flk_crawler import crawl_laws
-
-# 加载中文分词模型
-nlp = spacy.load("zh_core_web_sm")
+# 加载中文分词模型，如缺失则回退到内置空白模型
+try:
+    nlp = spacy.load("zh_core_web_sm")
+except OSError:
+    nlp = Chinese()
 
 # ====================== 1. 爬虫输入接口：接收上游模块数据 ======================
 def receive_crawl_data(crawl_data: dict) -> tuple[str, str, str]:

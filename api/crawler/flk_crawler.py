@@ -351,7 +351,7 @@ def download_body_for_item(
         DOWNLOAD_INFO_URL,
         params={"format": "docx", "bbbs": law_id},
         headers=headers,
-        timeout=15,
+        timeout=60,
     )
     print("  download/pc 状态码：", resp.status_code,
           "| Content-Type:", resp.headers.get("Content-Type"))
@@ -415,7 +415,7 @@ def download_body_for_item(
     print("  保存文件名：", fname)
 
     try:
-        r = session.get(url, timeout=60)
+        r = session.get(url, timeout=120)
         print("  下载响应状态码：", r.status_code)
         r.raise_for_status()
     except requests.RequestException as e:

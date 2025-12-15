@@ -1,11 +1,13 @@
-from api.dbManager.VectorDBManager import *
+from api.dbManager.VectorDBManager import VectorDBManager
+from api.Segment.contract_split import receive_crawl_data
+from api.crawler.flk_crawler import crawl_laws
 
 # ====================== 4. 主函数：串联爬虫+分块+向量库流程 ======================
 if __name__ == "__main__":
     # ========== 步骤1：调用爬虫接口，抓取真实法规数据 ==========
     print("📌 开始抓取法规数据...")
     # 配置爬虫参数：关键词、翻页数等
-    laws_keyword = "民法典"  # 可替换为"公司法""合同法"等
+    laws_keyword = "合同法"  # 可替换为"公司法""合同法"等
     crawl_results = crawl_laws(
         laws_keyword, 
         max_pages=1,       # 抓取2页结果，可调整

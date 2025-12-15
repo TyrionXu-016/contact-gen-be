@@ -54,8 +54,9 @@ class BGEModel:
             向量数组
         """
         normalize = normalize if normalize is not None else config.NORMALIZE_EMBEDDINGS
+        is_single_text = isinstance(texts, str)
         
-        if isinstance(texts, str):
+        if is_single_text:
             texts = [texts]
             
         if self.use_sentence_transformer:
@@ -84,7 +85,14 @@ class BGEModel:
                 embeddings = torch.nn.functional.normalize(embeddings, p=2, dim=1)
                 
             embeddings = embeddings.cpu().numpy()
-            
+        
+        if is_single_text:
+            if isinstance(embeddings, np.ndarray):
+                return np.squeeze(embeddings, axis=0)
+            if isinstance(embeddings, list) and embeddings and isinstance(embeddings[0], (list, np.ndarray)):
+                return embeddings[0]
+            return embeddings
+        
         return embeddings
     
     def encode_batch(self, texts: List[str], batch_size: int = 32, **kwargs):

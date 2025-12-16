@@ -12,7 +12,7 @@ TEMPLATES_DIR = os.path.join(DATA_DIR, "templates")
 LAWS_DIR = os.path.join(DATA_DIR, "laws")
 
 # 模型配置
-BGE_MODEL_NAME = "D:/fdu/fDu_homework/project_manager/models/BAAI-bge-large-zh/BAAI/bge-large-zh"
+BGE_MODEL_NAME = os.path.join(BASE_DIR, "models", "bge-large-zh")
 EMBEDDING_DIM = 1024
 NORMALIZE_EMBEDDINGS = True
 

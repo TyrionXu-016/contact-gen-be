@@ -91,7 +91,7 @@ class VectorDBManager:
         # 3. 存储整体模板
         self.contract_collection.add(
             documents=[content],
-            embeddings=template_embedding,
+            embeddings=[template_embedding],
             metadatas=[metadata],
             ids=[template_id]
         )
@@ -120,14 +120,16 @@ class VectorDBManager:
         #  分段处理
         segments = split_contract(content, data_type="law")
         for i in range(len(segments)):
-            if i%10 == 0:
+            if i % 10 == 0:
                 print(f"==向量化第{i}-{i+10}段法律文本==")
-            embeddings = self.bge_model.encode(segments[i])
+            segment_embedding = self.bge_model.encode(segments[i])
+            if isinstance(segment_embedding, np.ndarray):
+                segment_embedding = segment_embedding.tolist()
 
             # 存储 TODO 法律法规是否不需要整体存储，只存分段？
             self.law_collection.add(
                 documents=[segments[i]],
-                embeddings=embeddings,
+                embeddings=[segment_embedding],
                 metadatas=[metadata],
                 ids=[regulation_id]
             )
@@ -170,7 +172,7 @@ class VectorDBManager:
         # 存储
         self.case_collection.add(
             documents=[content],
-            embeddings=template_embedding,
+            embeddings=[template_embedding],
             metadatas=[metadata],
             ids=[regulation_id]
         )
@@ -208,12 +210,22 @@ class VectorDBManager:
         where_conditions = None
         if filter_conditions:
             # 转换过滤条件为ChromaDB格式
-            where_conditions = {}
+            filter_clauses = []
             for key, value in filter_conditions.items():
+                if value is None:
+                    continue
                 if isinstance(value, list):
-                    where_conditions[key] = {"$in": value}
+                    clause = {key: {"$in": value}}
                 else:
-                    where_conditions[key] = value
+                    clause = {key: value}
+                filter_clauses.append(clause)
+
+            if filter_clauses:
+                where_conditions = (
+                    filter_clauses[0]
+                    if len(filter_clauses) == 1
+                    else {"$and": filter_clauses}
+                )
                     
         # 执行查询
         results = collection.query(

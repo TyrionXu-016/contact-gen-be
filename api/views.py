@@ -5,9 +5,11 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.http import StreamingHttpResponse
 from .models import Document
-from .serializers import DocumentSerializer
+from .serializers import DocumentSerializer, ContractGenerateSerializer
 from .dbManager.VectorDBManager import VectorDBManager
+from .services.contract_generation import generate_contract_stream
 import uuid
 
 
@@ -249,6 +251,28 @@ class UserQueryView(APIView):
             "relevant_laws": search_result.get("relevant_laws"),
             "relevant_case": search_result.get("relevant_case")
         }
+
+
+class ContractGenerationView(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        serializer = ContractGenerateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            stream = generate_contract_stream(serializer.validated_data)
+        except RuntimeError as exc:
+            return Response({"error": str(exc)}, status=status.HTTP_400_BAD_REQUEST)
+
+        return StreamingHttpResponse(
+            stream,
+            content_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",
+            },
+        )
 
 
 # 原有的DocumentViewSet保持不变

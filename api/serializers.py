@@ -54,3 +54,15 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'author')
+
+
+class ContractGenerateSerializer(serializers.Serializer):
+    prompt = serializers.CharField()
+    contract_type = serializers.CharField()
+    first_party = serializers.CharField(default="甲方")
+    second_party = serializers.CharField(default="乙方")
+    cooperation_purpose = serializers.CharField(allow_blank=True, required=False)
+    Core_scenario = serializers.CharField(allow_blank=True, required=False)
+    max_new_tokens = serializers.IntegerField(default=5000, min_value=1)
+    temperature = serializers.FloatField(default=0.7, min_value=0.0, max_value=1.0)
+    use_new_knowledge_base = serializers.BooleanField(default=True)

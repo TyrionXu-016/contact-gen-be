@@ -9,3 +9,5 @@ api/__pycache__/*
 api/migrations/__pycache__/*
 api/crawlers/__pycache__/*
 backend/__pycache__/*
+
+.env

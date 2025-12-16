@@ -6,7 +6,8 @@ from .views import (
     SimpleRegisterView,
     SimpleLoginView,
     CurrentUserView,
-    UserQueryView
+    UserQueryView,
+    ContractGenerationView,
 )
 
 router = DefaultRouter()
@@ -17,5 +18,6 @@ urlpatterns = [
     path('register/', SimpleRegisterView.as_view(), name='simple-register'),
     path('login/', SimpleLoginView.as_view(), name='simple-login'),
     path('user_query/', UserQueryView.as_view(), name='user-query'),
+    path('contract/generate/', ContractGenerationView.as_view(), name='contract-generate'),
     path('me/', CurrentUserView.as_view(), name='current-user'),
 ]
